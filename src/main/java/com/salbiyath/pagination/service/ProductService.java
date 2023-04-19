@@ -9,10 +9,10 @@ import java.util.List;
 public interface ProductService {
 
     List<Product> getAllProducts();
-    Product getProductById(Long id);
+    Product getProductById(String id);
     Product createProduct(Product product);
-    Product updateProduct(Long id, Product product);
-    void deleteProduct(Long id);
+    Product updateProduct(String id, Product product);
+    void deleteProduct(String id);
     Page<Product> getAllProductsPaged(Pageable pageable);
 
 }

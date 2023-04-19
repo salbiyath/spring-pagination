@@ -4,7 +4,9 @@ import com.salbiyath.pagination.exception.ResourceNotFoundException;
 import com.salbiyath.pagination.model.Product;
 import com.salbiyath.pagination.repository.ProductRepository;
 import com.salbiyath.pagination.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
 
+    @Autowired
     public void setProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -25,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(String id) {
         return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
     }
 
@@ -35,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
+    public Product updateProduct(String id, Product product) {
         Product existingProduct = getProductById(id);
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
@@ -44,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(Long id) {
+    public void deleteProduct(String id) {
         Product existingProduct = getProductById(id);
         productRepository.delete(existingProduct);
     }
